@@ -1,0 +1,26 @@
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.2'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    ext {
+        androidSupportVersion = "25.3.1"
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
