@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".NewsSourcesAtivity"
+            android:name="leskin.udacity.findoutfirst.ui.newsSources.NewsSourcesAtivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
