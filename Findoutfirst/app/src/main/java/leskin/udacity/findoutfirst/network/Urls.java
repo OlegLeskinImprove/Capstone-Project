@@ -5,8 +5,8 @@ package leskin.udacity.findoutfirst.network;
  */
 
 public class Urls {
-    private final static String BASE_URL = "https://newsapi.org/v1";
+    public final static String BASE_URL = "https://newsapi.org/v1/";
 
-    public final static String NEWS_SOURCES = BASE_URL + "/sources";
-    public final static String NEWS_ARTICLES = BASE_URL + "/articles";
+    public final static String NEWS_SOURCES = "sources";
+    public final static String NEWS_ARTICLES = "articles";
 }

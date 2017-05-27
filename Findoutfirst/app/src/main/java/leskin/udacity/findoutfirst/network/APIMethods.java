@@ -22,10 +22,15 @@ public class APIMethods {
     private static APIService service;
 
     static {
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        service = retrofit.create(APIService.class);
+        try {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl(Urls.BASE_URL)
+                    .build();
+            service = retrofit.create(APIService.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void getNewsSources(CategoryOfNewsSource category, LanguageOfNewsSources language, Callback<NewsSources> cb) {
