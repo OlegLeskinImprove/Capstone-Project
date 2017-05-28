@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import leskin.udacity.findoutfirst.findoutfirst.R;
 import leskin.udacity.findoutfirst.model.NewsSources;
 import leskin.udacity.findoutfirst.model.Source;
+import leskin.udacity.findoutfirst.ui.articles.ArticlesAtivity;
 
 /**
  * Created by Oleg Leskin on 23.05.2017.
@@ -51,8 +52,14 @@ public class NewsSourcesAdapter extends RecyclerView.Adapter<NewsSourcesAdapter.
     }
 
     @Override
-    public void onBindViewHolder(SourceViewHolder holder, int position) {
+    public void onBindViewHolder(SourceViewHolder holder, final int position) {
         holder.source.setText(getItem(position).getName());
+        holder.source.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArticlesAtivity.launch(context, getItem(position));
+            }
+        });
     }
 
 

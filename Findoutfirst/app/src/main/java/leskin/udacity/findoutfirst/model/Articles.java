@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Articles implements Serializable{
@@ -17,7 +18,7 @@ public class Articles implements Serializable{
     private String sortBy;
     @SerializedName("articles")
     @Expose
-    private List<Article> articles = null;
+    private List<Article> articles = new ArrayList<>();
 
     public String getSource() {
         return source;
