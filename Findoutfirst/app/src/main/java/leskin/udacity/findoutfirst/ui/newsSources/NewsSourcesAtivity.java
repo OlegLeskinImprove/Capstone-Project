@@ -1,5 +1,6 @@
 package leskin.udacity.findoutfirst.ui.newsSources;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 
 import leskin.udacity.findoutfirst.findoutfirst.R;
 import leskin.udacity.findoutfirst.model.enums.CategoryOfNewsSource;
+import leskin.udacity.findoutfirst.ui.favorites.FavoritesActivity;
 
 public class NewsSourcesAtivity extends AppCompatActivity {
 
@@ -59,7 +61,8 @@ public class NewsSourcesAtivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_favorites) {
+            startActivity(new Intent(this, FavoritesActivity.class));
             return true;
         }
 

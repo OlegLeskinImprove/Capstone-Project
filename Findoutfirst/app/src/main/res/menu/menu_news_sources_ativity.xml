@@ -3,8 +3,11 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="leskin.udacity.findoutfirst.findoutfirst.leskin.udacity.findoutfirst.ui.NewsSourcesAtivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_favorites"
+        android:icon="@drawable/ic_favorite_border_24px"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:title="@string/favorites"
+        android:visible="true"
+        app:showAsAction="always"
+        />
 </menu>

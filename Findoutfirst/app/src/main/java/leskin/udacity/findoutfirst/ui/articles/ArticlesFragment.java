@@ -1,5 +1,6 @@
 package leskin.udacity.findoutfirst.ui.articles;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,9 +17,7 @@ import leskin.udacity.findoutfirst.findoutfirst.R;
 import leskin.udacity.findoutfirst.model.Articles;
 import leskin.udacity.findoutfirst.model.enums.SortingOfArticles;
 import leskin.udacity.findoutfirst.network.APIMethods;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import leskin.udacity.findoutfirst.utils.PrefUtils;
 
 /**
  * Created by Oleg Leskin on 23.05.2017.
@@ -34,7 +33,7 @@ public class ArticlesFragment extends Fragment {
 
     private SortingOfArticles sorting;
     private String source;
-    private Articles articles = new Articles();
+    private Articles mArticles = new Articles();
     private ArticlesAdapter adapter;
     LinearLayoutManager layoutManager;
 
@@ -68,13 +67,8 @@ public class ArticlesFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         listOfArticles.setLayoutManager(layoutManager);
-        adapter = new ArticlesAdapter(getActivity(), articles);
+        adapter = new ArticlesAdapter(getActivity(), mArticles);
         listOfArticles.setAdapter(adapter);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         getArticles();
     }
 
@@ -84,25 +78,7 @@ public class ArticlesFragment extends Fragment {
     }
 
     private void getArticles() {
-        showProgress();
-        APIMethods.getArticles(source, sorting, new Callback<Articles>() {
-            @Override
-            public void onResponse(Call<Articles> call, Response<Articles> response) {
-                if (response.body() != null) {
-                    articles.getArticles().clear();
-                    articles.getArticles().addAll(response.body().getArticles());
-                    updateData();
-                } else {
-                    hideProgress();
-                    Toast.makeText(getActivity(), R.string.error_loading_data, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Articles> call, Throwable t) {
-                Toast.makeText(getActivity(), R.string.error_loading_data, Toast.LENGTH_SHORT).show();
-            }
-        });
+        new GetArticlesTask().execute();
     }
 
     private void updateData() {
@@ -117,5 +93,35 @@ public class ArticlesFragment extends Fragment {
 
     private void hideProgress() {
         progressBar.setVisibility(View.GONE);
+    }
+
+
+    private class GetArticlesTask extends AsyncTask<Void, Void, Articles> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showProgress();
+        }
+
+        @Override
+        protected Articles doInBackground(Void... voids) {
+            PrefUtils.saveLastSourceAndSorting(getContext(), source, sorting.toString());
+            return APIMethods.getArticles(source, sorting);
+        }
+
+        @Override
+        protected void onPostExecute(Articles articles) {
+            super.onPostExecute(articles);
+            hideProgress();
+
+            if (articles != null) {
+                mArticles.getArticles().clear();
+                mArticles.getArticles().addAll(articles.getArticles());
+                updateData();
+            } else {
+                Toast.makeText(getActivity(), R.string.error_loading_data, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

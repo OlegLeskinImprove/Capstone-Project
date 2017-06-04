@@ -1,5 +1,6 @@
 package leskin.udacity.findoutfirst.ui.newsSources;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,9 +19,6 @@ import leskin.udacity.findoutfirst.model.NewsSources;
 import leskin.udacity.findoutfirst.model.enums.CategoryOfNewsSource;
 import leskin.udacity.findoutfirst.model.enums.LanguageOfNewsSources;
 import leskin.udacity.findoutfirst.network.APIMethods;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Oleg Leskin on 23.05.2017.
@@ -90,25 +88,7 @@ public class NewsSourcesFragment extends Fragment {
     }
 
     private void getNewsSources() {
-        showProgress();
-        APIMethods.getNewsSources(category, LanguageOfNewsSources.ENGLISH, new Callback<NewsSources>() {
-            @Override
-            public void onResponse(Call<NewsSources> call, Response<NewsSources> response) {
-                if (response.body() != null) {
-                    newsSources.getSources().clear();
-                    newsSources.getSources().addAll(response.body().getSources());
-                    updateData();
-                } else {
-                    hideProgress();
-                    Toast.makeText(getActivity(), R.string.error_loading_data, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NewsSources> call, Throwable t) {
-
-            }
-        });
+        new GetNewsSourcesTask().execute(category);
     }
 
     private void updateData() {
@@ -123,5 +103,36 @@ public class NewsSourcesFragment extends Fragment {
 
     private void hideProgress() {
         progressBar.setVisibility(View.GONE);
+    }
+
+
+    private class GetNewsSourcesTask extends AsyncTask<CategoryOfNewsSource, Void, NewsSources> {
+        @Override
+        protected void onPreExecute() {
+            showProgress();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected NewsSources doInBackground(CategoryOfNewsSource... categoryOfNewsSources) {
+            if (categoryOfNewsSources != null) {
+                return APIMethods.getNewsSources(categoryOfNewsSources[0], LanguageOfNewsSources.ENGLISH);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(NewsSources sources) {
+            super.onPostExecute(sources);
+            hideProgress();
+
+            if (sources == null)
+                Toast.makeText(getActivity(), R.string.error_loading_data, Toast.LENGTH_SHORT).show();
+            else{
+                newsSources.getSources().clear();
+                newsSources.getSources().addAll(sources.getSources());
+                updateData();
+            }
+        }
     }
 }

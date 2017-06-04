@@ -11,10 +11,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import leskin.udacity.findoutfirst.findoutfirst.R;
 import leskin.udacity.findoutfirst.model.Source;
 import leskin.udacity.findoutfirst.model.enums.SortingOfArticles;
+import leskin.udacity.findoutfirst.ui.favorites.FavoritesActivity;
 
 public class ArticlesAtivity extends AppCompatActivity {
 
@@ -65,6 +67,19 @@ public class ArticlesAtivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_news_sources_ativity, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_favorites) {
+            startActivity(new Intent(this, FavoritesActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void getExtra(){

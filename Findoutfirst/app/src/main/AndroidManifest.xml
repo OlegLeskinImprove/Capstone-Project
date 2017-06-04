@@ -24,6 +24,33 @@
 
         <activity android:name="leskin.udacity.findoutfirst.ui.articles.ArticlesAtivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name="leskin.udacity.findoutfirst.ui.detailsOfArticle.DetailsActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name="leskin.udacity.findoutfirst.ui.favorites.FavoritesActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+
+        <provider
+            android:name="leskin.udacity.findoutfirst.db.generated.FavoriteNewsProvider"
+            android:authorities="leskin.udacity.findoutfirst.db.FavoriteNewsProvider"
+            android:exported="false"
+            android:syncable="true"/>
+
+        <receiver
+            android:name="leskin.udacity.findoutfirst.widget.NewsWidgetProvider"
+            android:label="@string/title_widget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.example.android.sunshine.app.ACTION_DATA_UPDATED"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_news"/>
+        </receiver>
+
+        <service android:name="leskin.udacity.findoutfirst.widget.NewsWidgetService"/>
+
     </application>
 
 </manifest>

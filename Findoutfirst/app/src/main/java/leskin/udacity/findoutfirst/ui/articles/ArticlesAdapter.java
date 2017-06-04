@@ -11,16 +11,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import leskin.udacity.findoutfirst.findoutfirst.R;
 import leskin.udacity.findoutfirst.model.Article;
 import leskin.udacity.findoutfirst.model.Articles;
+import leskin.udacity.findoutfirst.ui.detailsOfArticle.DetailsActivity;
+
+import static leskin.udacity.findoutfirst.utils.Utils.parseDate;
 
 /**
  * Created by Oleg Leskin on 23.05.2017.
@@ -35,7 +33,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Source
     public ArticlesAdapter(Context context, Articles articles) {
         this.articles = articles;
         this.context = context;
-
     }
 
     static class SourceViewHolder extends RecyclerView.ViewHolder {
@@ -65,28 +62,20 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Source
     }
 
     @Override
-    public void onBindViewHolder(SourceViewHolder holder, int position) {
+    public void onBindViewHolder(SourceViewHolder holder, final int position) {
         holder.title.setText(getItem(position).getTitle());
         holder.date.setText(parseDate(getItem(position).getPublishedAt()));
 
         Glide.with(context)
                 .load(getItem(position).getUrlToImage())
-                .into(holder.imageOfArticle)
-                .onLoadStarted(context.getResources().getDrawable(R.mipmap.placeholder));
-    }
+                .into(holder.imageOfArticle);
 
-    private String parseDate(String unparsedDate) {
-        if (unparsedDate == null) return "";
-
-        SimpleDateFormat unparsedSDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
-        SimpleDateFormat parsedSDF = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault());
-        try {
-            Date date = unparsedSDF.parse(unparsedDate);
-            return parsedSDF.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return unparsedDate;
-        }
+        holder.imageOfArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DetailsActivity.launch(context, articles.getArticles().get(position), articles.getSource());
+            }
+        });
     }
 
     @Override

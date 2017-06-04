@@ -15,6 +15,14 @@ public enum SortingOfArticles {
         this.value = value;
     }
 
+    public static SortingOfArticles getByValue(String value) {
+        if (value.equals(TOP.toString()))
+            return TOP;
+        else if (value.equals(LATEST.toString()))
+            return LATEST;
+        else return POPULAR;
+    }
+
     @Override
     public String toString() {
         return value;

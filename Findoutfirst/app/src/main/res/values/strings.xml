@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Find out First</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add_to_favorite">Add or remove to favorite</string>
+    <string name="favorites">Favorites</string>
+    <string name="favorites_not_found">Favorites not found</string>
+    <string name="title_widget">Last news</string>
+
+    <!--Preferences-->
+    <string name="pref_source_key" translatable="false">source</string>
+    <string name="pref_sort_key" translatable="false">sort</string>
+    <string name="pref_default_source" translatable="false">cnn</string>
+    <string name="pref_default_sort" translatable="false">top</string>
 </resources>

@@ -1,5 +1,6 @@
 package leskin.udacity.findoutfirst.network;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,20 @@ public class APIMethods {
         call.enqueue(cb);
     }
 
+    public static NewsSources getNewsSources(CategoryOfNewsSource category, LanguageOfNewsSources language){
+        Map<String, String> options = new HashMap<>(2);
+        options.put("category", category.toString());
+        options.put("language", language.toString());
+
+        Call<NewsSources> call = service.getNewsSources(options);
+        try {
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static void getArticles(String source, SortingOfArticles sorting, Callback<Articles> cb) {
         Map<String, String> options = new HashMap<>();
         options.put("source", source);
@@ -49,6 +64,20 @@ public class APIMethods {
 
         Call<Articles> call = service.getArticles(BuildConfig.NEWS_DB_API_KEY, options);
         call.enqueue(cb);
+    }
+
+    public static Articles getArticles(String source, SortingOfArticles sorting) {
+        Map<String, String> options = new HashMap<>();
+        options.put("source", source);
+        options.put("sortBy", sorting.toString());
+
+        Call<Articles> call = service.getArticles(BuildConfig.NEWS_DB_API_KEY, options);
+        try {
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

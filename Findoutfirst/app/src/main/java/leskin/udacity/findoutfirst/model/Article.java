@@ -1,10 +1,14 @@
 
 package leskin.udacity.findoutfirst.model;
 
+import android.database.Cursor;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+
+import leskin.udacity.findoutfirst.db.FavoriteNews;
 
 public class Article implements Serializable {
 
@@ -73,6 +77,21 @@ public class Article implements Serializable {
 
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
+    }
+
+    public static Article fromCursor(Cursor cursor) {
+        Article article = new Article();
+        try {
+            article.setTitle(cursor.getString(cursor.getColumnIndex(FavoriteNews.TITLE)));
+            article.setDescription(cursor.getString(cursor.getColumnIndex(FavoriteNews.DESCRIPTION)));
+            article.setPublishedAt(cursor.getString(cursor.getColumnIndex(FavoriteNews.DATE)));
+            article.setUrl(cursor.getString(cursor.getColumnIndex(FavoriteNews.URL)));
+            article.setUrlToImage(cursor.getString(cursor.getColumnIndex(FavoriteNews.URL_TO_IMG)));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return article;
     }
 
 }
