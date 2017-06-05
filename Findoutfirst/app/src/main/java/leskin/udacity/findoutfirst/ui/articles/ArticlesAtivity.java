@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import leskin.udacity.findoutfirst.analytics.EventMarks;
+import leskin.udacity.findoutfirst.analytics.EventTracker;
 import leskin.udacity.findoutfirst.findoutfirst.R;
 import leskin.udacity.findoutfirst.model.Source;
 import leskin.udacity.findoutfirst.model.enums.SortingOfArticles;
@@ -48,6 +50,7 @@ public class ArticlesAtivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articles);
         getExtra();
+        EventTracker.trackEvent(this, EventMarks.SCREEN_ARTICLES);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -4,18 +4,18 @@
                                     xmlns:tools="http://schemas.android.com/tools"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/article_card_height"
-                                    app:cardUseCompatPadding="true"
-                                    app:cardBackgroundColor="@color/colorPrimaryDark">
+                                    app:cardBackgroundColor="@color/colorPrimaryDark"
+                                    app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/img_article"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/content_description_img_of_artilce"
             android:scaleType="centerCrop"
             app:srcCompat="@mipmap/placeholder"/>
 
@@ -41,8 +41,8 @@
                 style="@style/Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="date of article"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                tools:text="date of article"/>
         </LinearLayout>
     </RelativeLayout>
 

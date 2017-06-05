@@ -4,15 +4,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/article_card_height"
     android:id="@+id/widget"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/article_card_height">
 
     <ImageView
         android:id="@+id/img_article"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/content_description_img_of_artilce"
         android:scaleType="centerCrop"
         app:srcCompat="@mipmap/placeholder"/>
 

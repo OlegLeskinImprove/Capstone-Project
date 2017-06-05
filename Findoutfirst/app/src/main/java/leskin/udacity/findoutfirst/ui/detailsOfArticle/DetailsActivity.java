@@ -25,6 +25,8 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import leskin.udacity.findoutfirst.analytics.EventMarks;
+import leskin.udacity.findoutfirst.analytics.EventTracker;
 import leskin.udacity.findoutfirst.db.FavoriteNews;
 import leskin.udacity.findoutfirst.db.FavoriteNewsProvider;
 import leskin.udacity.findoutfirst.findoutfirst.R;
@@ -57,6 +59,9 @@ public class DetailsActivity extends AppCompatActivity {
     @BindView(R.id.article_body)
     TextView bodyText;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     private Article article;
     private String source = "";
     private int mMutedColor = 0xFF333333;
@@ -75,8 +80,8 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article_details);
         ButterKnife.bind(this);
         getExtra();
+        EventTracker.trackEvent(this, EventMarks.SCREEN_ARTICLE_DETAIL);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(source);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -130,6 +135,7 @@ public class DetailsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (!checkInFavorite(article)) {
+                        EventTracker.trackEvent(DetailsActivity.this, EventMarks.ACTION_ADD_TO_FAVORITES);
                         ContentValues contentValues = new ContentValues();
                         contentValues.put(FavoriteNews.TITLE, article.getTitle());
                         contentValues.put(FavoriteNews.DESCRIPTION, article.getDescription());
@@ -139,6 +145,7 @@ public class DetailsActivity extends AppCompatActivity {
                         getContentResolver().insert(FavoriteNewsProvider.FavoriteNews.CONTENT_URI, contentValues);
                         favoriteFab.setImageResource(R.drawable.ic_favorite_24px);
                     } else {
+                        EventTracker.trackEvent(DetailsActivity.this, EventMarks.ACTION_REMOVE_FROM_FAVORITES);
                         String where = FavoriteNews.URL + "= '" + article.getUrl() + "'";
                         getContentResolver().delete(FavoriteNewsProvider.FavoriteNews.CONTENT_URI, where, null);
                         favoriteFab.setImageResource(R.drawable.ic_favorite_border_24px);

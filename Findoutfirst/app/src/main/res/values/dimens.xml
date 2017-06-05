@@ -5,14 +5,14 @@
     <dimen name="appbar_padding_top">8dp</dimen>
 
     <dimen name="news_source_card_size">100dp</dimen>
-
     <dimen name="article_card_height">180dp</dimen>
-
-    <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">1.25</item>
-
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fab_press_translation_z">12dp</dimen>
+
+    <dimen name="article_horizontal_margin">0dp</dimen>
+    <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">1.25</item>
+    <bool name="is_tablet">false</bool>
 
     <!--Widget dimens-->
     <dimen name="widget_default_height">164dp</dimen>

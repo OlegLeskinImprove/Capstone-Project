@@ -2,9 +2,11 @@
     <string name="app_name">Find out First</string>
     <string name="action_settings">Settings</string>
     <string name="action_add_to_favorite">Add or remove to favorite</string>
+    <string name="content_description_img_of_artilce">Image of article</string>
     <string name="favorites">Favorites</string>
     <string name="favorites_not_found">Favorites not found</string>
     <string name="title_widget">Last news</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!--Preferences-->
     <string name="pref_source_key" translatable="false">source</string>

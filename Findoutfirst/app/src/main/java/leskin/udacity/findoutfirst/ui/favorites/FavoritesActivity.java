@@ -21,6 +21,8 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import leskin.udacity.findoutfirst.analytics.EventMarks;
+import leskin.udacity.findoutfirst.analytics.EventTracker;
 import leskin.udacity.findoutfirst.findoutfirst.R;
 import leskin.udacity.findoutfirst.model.Article;
 import leskin.udacity.findoutfirst.ui.detailsOfArticle.DetailsActivity;
@@ -55,6 +57,7 @@ public class FavoritesActivity extends AppCompatActivity implements LoaderManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_articles);
         ButterKnife.bind(this);
+        EventTracker.trackEvent(this, EventMarks.SCREEN_FAVORITES);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.favorites);

@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -65,11 +66,19 @@ public class ArticlesFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        initLayoutManager();
         listOfArticles.setLayoutManager(layoutManager);
         adapter = new ArticlesAdapter(getActivity(), mArticles);
         listOfArticles.setAdapter(adapter);
         getArticles();
+    }
+
+    private void initLayoutManager(){
+        if(getResources().getBoolean(R.bool.is_tablet)){
+            layoutManager = new GridLayoutManager(getContext(),2, LinearLayoutManager.VERTICAL, false);
+        }else{
+            layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        }
     }
 
     private void getBundle() {
